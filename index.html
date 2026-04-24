@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>54KG 訓練計畫</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0d0d0f;--surface:#16161a;--surface2:#1e1e24;--accent:#ff4d6d;--accent2:#ff8fa3;--gold:#f4c430;--teal:#4ecdc4;--purple:#c77dff;--green:#6bcb77;--text:#f0eee8;--muted:#888890;--border:rgba(255,255,255,0.07);}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:'Noto Sans TC',sans-serif;min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 80% 50% at 20% 10%,rgba(255,77,109,0.07) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 90%,rgba(78,205,196,0.05) 0%,transparent 50%);pointer-events:none;z-index:0;}
+.top-nav{position:sticky;top:0;z-index:200;background:rgba(13,13,15,0.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);display:flex;overflow-x:auto;scrollbar-width:none;}
+.top-nav::-webkit-scrollbar{display:none;}
+.nav-btn{flex-shrink:0;padding:14px 16px;font-family:'Noto Sans TC',sans-serif;font-size:12px;font-weight:500;color:var(--muted);background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;transition:all .2s;letter-spacing:.04em;}
+.nav-btn.active{color:var(--accent);border-bottom-color:var(--accent);}
+.nav-btn:hover:not(.active){color:var(--text);}
+.page{display:none;}.page.active{display:block;}
+.container{max-width:800px;margin:0 auto;padding:20px 16px 80px;position:relative;z-index:1;}
+.header{text-align:center;padding:28px 0 20px;animation:fadeDown .7s ease both;}
+.eyebrow{font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;}
+.header h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(48px,13vw,88px);line-height:.9;background:linear-gradient(135deg,#fff 30%,var(--accent2) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.header-sub{font-size:12px;color:var(--muted);margin-top:8px;letter-spacing:.08em;}
+.badge{display:inline-block;font-size:10px;padding:3px 10px;border-radius:100px;background:rgba(255,77,109,.12);border:1px solid rgba(255,77,109,.3);color:var(--accent2);letter-spacing:.06em;margin:3px 2px;}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:12px;}
+.stats3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px;}
+.stat-box{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px 10px;text-align:center;}
+.stat-val{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--accent);line-height:1;}
+.stat-lbl{font-size:10px;color:var(--muted);margin-top:3px;letter-spacing:.08em;}
+.prog-wrap{margin-bottom:10px;}
+.prog-row{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:5px;}
+.prog-row span:last-child{color:var(--text);font-weight:600;}
+.prog-bar{height:6px;background:var(--surface2);border-radius:100px;overflow:hidden;}
+.prog-fill{height:100%;border-radius:100px;transition:width .8s cubic-bezier(.4,0,.2,1);}
+.sec-head{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.sec-icon{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;}
+.sec-title{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;}
+.sec-badge{margin-left:auto;font-size:10px;padding:2px 10px;border-radius:100px;background:var(--surface2);color:var(--muted);}
+.ex-list{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:12px;}
+.ex-item{display:flex;align-items:center;padding:12px 14px;border-bottom:1px solid var(--border);gap:10px;cursor:pointer;transition:background .15s;}
+.ex-item:last-child{border-bottom:none;}
+.ex-item:hover{background:var(--surface2);}
+.ex-item.done{opacity:.4;}
+.ex-item.done .ex-name{text-decoration:line-through;}
+.chk{width:20px;height:20px;border-radius:50%;border:2px solid var(--border);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;transition:all .2s;}
+.ex-item.done .chk{background:var(--teal);border-color:var(--teal);color:#0d0d0f;}
+.ex-name{font-size:13px;font-weight:500;flex:1;}
+.ex-detail{font-size:11px;color:var(--muted);text-align:right;white-space:nowrap;}
+.tag{font-size:10px;padding:2px 7px;border-radius:100px;font-weight:700;white-space:nowrap;}
+.t-core{background:rgba(255,77,109,.15);color:var(--accent2);}
+.t-glute{background:rgba(199,125,255,.15);color:var(--purple);}
+.t-flex{background:rgba(78,205,196,.15);color:var(--teal);}
+.t-cardio{background:rgba(244,196,48,.15);color:var(--gold);}
+.t-str{background:rgba(255,150,100,.15);color:#ff9664;}
+.t-inv{background:rgba(107,203,119,.15);color:var(--green);}
+.note{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--gold);border-radius:12px;padding:13px 15px;font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:12px;}
+.note strong{color:var(--text);}
+.day-nav{display:flex;gap:5px;overflow-x:auto;padding-bottom:2px;margin-bottom:14px;scrollbar-width:none;}
+.day-nav::-webkit-scrollbar{display:none;}
+.day-btn{flex-shrink:0;padding:7px 14px;border-radius:100px;border:1px solid var(--border);background:var(--surface);color:var(--muted);font-family:'Noto Sans TC',sans-serif;font-size:11px;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.day-btn.active{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:700;}
+.day-view{display:none;}.day-view.active{display:block;}
+.bottom-bar{position:fixed;bottom:0;left:0;right:0;background:rgba(13,13,15,.95);border-top:1px solid var(--border);padding:10px 20px;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(12px);z-index:100;}
+.bottom-text{font-size:12px;color:var(--muted);}
+.bottom-text strong{color:var(--accent);}
+.reset-btn{font-size:11px;padding:6px 14px;border-radius:100px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;font-family:'Noto Sans TC',sans-serif;transition:all .2s;}
+.reset-btn:hover{border-color:var(--accent);color:var(--accent);}
+.inp{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:10px 12px;color:var(--text);font-family:'Noto Sans TC',sans-serif;font-size:13px;outline:none;width:100%;transition:border .2s;}
+.inp:focus{border-color:var(--accent);}
+select.inp option{background:#1e1e24;}
+.workout-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:10px;}
+.workout-header{padding:14px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;}
+.workout-day-label{font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--accent);}
+.workout-type{font-size:11px;color:var(--muted);}
+.workout-row{display:flex;align-items:center;padding:11px 16px;border-bottom:1px solid var(--border);gap:10px;}
+.workout-row:last-child{border-bottom:none;}
+.workout-name{font-size:13px;font-weight:500;flex:1;}
+.workout-sets{font-size:11px;color:var(--muted);text-align:right;}
+.month-selector{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.month-label{font-size:14px;font-weight:700;}
+.month-arrow{background:var(--surface);border:1px solid var(--border);border-radius:8px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text);font-size:16px;transition:all .2s;}
+.month-arrow:hover{border-color:var(--accent);color:var(--accent);}
+.week-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-bottom:6px;}
+.week-cell{aspect-ratio:1;border-radius:6px;background:var(--surface2);border:1px solid var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:9px;color:var(--muted);}
+.week-cell .dn{font-size:11px;font-weight:600;color:var(--text);}
+.week-cell.has-w{border-color:rgba(255,77,109,.4);background:rgba(255,77,109,.08);}.week-cell.has-w .dn{color:var(--accent);}
+.week-cell.has-f{border-color:rgba(78,205,196,.4);background:rgba(78,205,196,.08);}
+.week-cell.both{background:rgba(107,203,119,.1);border-color:rgba(107,203,119,.4);}.week-cell.both .dn{color:var(--green);}
+.week-cell.tod{box-shadow:0 0 0 2px var(--accent);}
+.week-cell.fut{opacity:.3;}
+.wh{font-size:10px;color:var(--muted);text-align:center;padding:3px 0;}
+.summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;}
+.summary-item{background:var(--surface2);border-radius:10px;padding:12px;text-align:center;}
+.summary-val{font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--teal);}
+.summary-lbl{font-size:10px;color:var(--muted);margin-top:2px;}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-16px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <button class="nav-btn active" onclick="showPage('home',this)">🏠 首頁</button>
+  <button class="nav-btn" onclick="showPage('daily',this)">📅 每日課表</button>
+  <button class="nav-btn" onclick="showPage('workout',this)">🏋️ 運動規劃</button>
+  <button class="nav-btn" onclick="showPage('food',this)">🥗 飲食記錄</button>
+  <button class="nav-btn" onclick="showPage('progress',this)">📊 進度追蹤</button>
+</nav>
+
+<!-- HOME -->
+<div class="page active" id="page-home">
+<div class="container">
+  <div class="header">
+    <div class="eyebrow">🥊 Boxing Goal Tracker</div>
+    <h1>54KG</h1>
+    <div style="margin-top:6px;">
+      <span class="badge">體脂 ≤20%</span><span class="badge">劈腿</span><span class="badge">下腰</span><span class="badge">倒立</span><span class="badge">9月比賽</span>
+    </div>
+    <div class="header-sub">61kg → 54kg ｜ 4個月計畫</div>
+  </div>
+  <div class="card">
+    <div class="sec-head">
+      <div class="sec-icon" style="background:rgba(255,77,109,.12);">⚖️</div>
+      <span class="sec-title">體重進度</span>
+      <button onclick="openWModal()" style="margin-left:auto;background:var(--accent);border:none;border-radius:8px;padding:5px 12px;color:#fff;font-size:11px;cursor:pointer;font-family:'Noto Sans TC',sans-serif;font-weight:700;">更新體重</button>
+    </div>
+    <div class="prog-wrap">
+      <div class="prog-row"><span>體重 61→54kg</span><span id="hw">61.0 kg</span></div>
+      <div class="prog-bar"><div class="prog-fill" id="hwb" style="width:0%;background:linear-gradient(90deg,var(--accent),var(--accent2));"></div></div>
+      <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-top:4px;"><span>61kg</span><span>54kg</span></div>
+    </div>
+    <div class="prog-wrap" style="margin-bottom:0;">
+      <div class="prog-row"><span>體脂 ~26%→20%</span><span id="hf">~26%</span></div>
+      <div class="prog-bar"><div class="prog-fill" id="hfb" style="width:0%;background:linear-gradient(90deg,var(--purple),var(--teal));"></div></div>
+    </div>
+  </div>
+  <div class="stats3">
+    <div class="stat-box"><div class="stat-val" id="hd">0</div><div class="stat-lbl">今日訓練完成</div></div>
+    <div class="stat-box"><div class="stat-val" style="color:var(--teal);" id="hk">0</div><div class="stat-lbl">今日熱量</div></div>
+    <div class="stat-box"><div class="stat-val" style="color:var(--gold);" id="hp">0g</div><div class="stat-lbl">今日蛋白質</div></div>
+  </div>
+  <div class="sec-head"><div class="sec-icon" style="background:rgba(244,196,48,.12);">🏆</div><span class="sec-title">月里程碑</span></div>
+  <div class="ex-list">
+    <div class="ex-item" onclick="toggleMS(this,'m1')"><div class="chk">✓</div><div class="ex-name">月1｜59–60kg · 飲食規律化</div><div class="ex-detail" style="color:var(--muted);">月1</div></div>
+    <div class="ex-item" onclick="toggleMS(this,'m2')"><div class="chk">✓</div><div class="ex-name">月2｜57–58kg · 劈腿達成</div><div class="ex-detail" style="color:var(--muted);">月2</div></div>
+    <div class="ex-item" onclick="toggleMS(this,'m3')"><div class="chk">✓</div><div class="ex-name">月3｜55–56kg · 下腰手碰地</div><div class="ex-detail" style="color:var(--muted);">月3</div></div>
+    <div class="ex-item" onclick="toggleMS(this,'m4')"><div class="chk">✓</div><div class="ex-name">月4｜54kg · 9月比賽！🏆</div><div class="ex-detail" style="color:var(--teal);">月4</div></div>
+  </div>
+  <div class="sec-head"><div class="sec-icon" style="background:rgba(78,205,196,.12);">🤸</div><span class="sec-title">柔軟度目標</span></div>
+  <div class="ex-list">
+    <div class="ex-item" onclick="toggleMS(this,'f1')"><div class="chk">✓</div><div class="ex-name">劈腿達成</div><div class="ex-detail" style="color:var(--teal);">4–6週</div></div>
+    <div class="ex-item" onclick="toggleMS(this,'f2')"><div class="chk">✓</div><div class="ex-name">下腰手碰地</div><div class="ex-detail" style="color:var(--teal);">8–12週</div></div>
+    <div class="ex-item" onclick="toggleMS(this,'f3')"><div class="chk">✓</div><div class="ex-name">靠牆倒立穩定30秒</div><div class="ex-detail" style="color:var(--teal);">6–8週</div></div>
+    <div class="ex-item" onclick="toggleMS(this,'f4')"><div class="chk">✓</div><div class="ex-name">獨立倒立（不靠牆）</div><div class="ex-detail" style="color:var(--muted);">長期</div></div>
+  </div>
+</div>
+</div>
+
+<!-- DAILY -->
+<div class="page" id="page-daily">
+<div class="container">
+  <div style="padding:20px 0 14px;"><div class="eyebrow">每日早晚 Routine</div><div style="font-size:22px;font-family:'Bebas Neue',sans-serif;letter-spacing:.04em;">每天 15分鐘 × 2</div></div>
+  <div class="day-nav">
+    <button class="day-btn" onclick="showDay('mon',this)">週一</button>
+    <button class="day-btn" onclick="showDay('tue',this)">週二</button>
+    <button class="day-btn" onclick="showDay('wed',this)">週三</button>
+    <button class="day-btn" onclick="showDay('thu',this)">週四</button>
+    <button class="day-btn" onclick="showDay('fri',this)">週五</button>
+    <button class="day-btn" onclick="showDay('sat',this)">週六</button>
+    <button class="day-btn" onclick="showDay('sun',this)">週日</button>
+  </div>
+  <div class="day-view" id="day-mon">
+    <div class="note">🥊 <strong>週一：拳擊訓練日</strong>｜早晚 routine 輕鬆做，拳擊課全力投入</div>
+    <div class="sec-head"><div class="sec-icon" style="background:rgba(244,196,48,.12);">🌅</div><span class="sec-title">早上啟動</span><span class="sec-badge">15 min</span></div>
+    <div class="ex-list">
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">原地高抬腿</div><div class="tag t-cardio">有氧</div><div class="ex-detail">2分鐘</div></div>
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">深蹲（綁腳沙袋）</div><div class="tag t-str">力量</div><div class="ex-detail">15次×3</div></div>
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">棒式 Plank</div><div class="tag t-core">核心</div><div class="ex-detail">30秒×3</div></div>
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">側平板（左右）</div><div class="tag t-core">核心</div><div class="ex-detail">20秒×各2</div></div>
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">貓牛伸展</div><div class="tag t-flex">柔軟</div><div class="ex-detail">1分鐘</div></div>
+    </div>
+    <div class="sec-head"><div class="sec-icon" style="background:rgba(199,125,255,.12);">🌙</div><span class="sec-title">晚上收尾</span><span class="sec-badge">15 min</span></div>
+    <div class="ex-list">
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">眼鏡蛇式</div><div class="tag t-flex">下腰</div><div class="ex-detail">45秒×2</div></div>
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">駱駝式</div><div class="tag t-flex">下腰</div><div class="ex-detail">30秒×2</div></div>
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">弓步深壓</div><div class="tag t-flex">劈腿</div><div class="ex-detail">各45秒</div></div>
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">劈腿靜態撐住</div><div class="tag t-flex">劈腿</div><div class="ex-detail">各45秒</div></div>
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">滾筒放鬆</div><div class="tag t-flex">恢復</div><div class="ex-detail">3分鐘</div></div>
+    </div>
+  </div>
+  <div class="day-view" id="day-tue">
+    <div class="note">💪 <strong>週二：重訓塑形日</strong>｜輕重量高次數，雕線條不增塊頭</div>
+    <div class="sec-head"><div class="sec-icon" style="background:rgba(244,196,48,.12);">🌅</div><span class="sec-title">早上啟動</span><span class="sec-badge">15 min</span></div>
+    <div class="ex-list">
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">原地高抬腿</div><div class="tag t-cardio">有氧</div><div class="ex-detail">2分鐘</div></div>
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">深蹲（綁腳沙袋）</div><div class="tag t-str">力量</div><div class="ex-detail">15次×3</div></div>
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">棒式 Plank</div><div class="tag t-core">核心</div><div class="ex-detail">30秒×3</div></div>
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">側平板（左右）</div><div class="tag t-core">核心</div><div class="ex-detail">20秒×各2</div></div>
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">貓牛伸展</div><div class="tag t-flex">柔軟</div><div class="ex-detail">1分鐘</div></div>
+    </div>
+    <div class="sec-head"><div class="sec-icon" style="background:rgba(199,125,255,.12);">🌙</div><span class="sec-title">晚上塑形</span><span class="sec-badge">15 min</span></div>
+    <div class="ex-list">
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">阻力帶臀橋</div><div class="tag t-glute">臀腿</div><div class="ex-detail">15次×3</div></div>
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">阻力帶側走</div><div class="tag t-glute">臀腿</div><div class="ex-detail">來回10步×3</div></div>
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">靠牆倒立</div><div class="tag t-inv">倒立</div><div class="ex-detail">30秒×3</div></div>
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">海豚式</div><div class="tag t-inv">倒立</div><div class="ex-detail">30秒×2</div></div>
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">坐姿前彎</div><div class="tag t-flex">劈腿</div><div class="ex-detail">45秒</div></div>
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">滾筒放鬆</div><div class="tag t-flex">恢復</div><div class="ex-detail">3分鐘</div></div>
+    </div>
+  </div>
+  <div class="day-view" id="day-wed">
+    <div class="note">💃 <strong>週三：跳舞 + 柔軟度日</strong>｜放輕鬆，專注流動性</div>
+    <div class="sec-head"><div class="sec-icon" style="background:rgba(244,196,48,.12);">🌅</div><span class="sec-title">早上啟動</span><span class="sec-badge">15 min</span></div>
+    <div class="ex-list">
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">原地高抬腿</div><div class="tag t-cardio">有氧</div><div class="ex-detail">2分鐘</div></div>
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">深蹲（綁腳沙袋）</div><div class="tag t-str">力量</div><div class="ex-detail">15次×3</div></div>
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">棒式 Plank</div><div class="tag t-core">核心</div><div class="ex-detail">30秒×3</div></div>
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">側平板（左右）</div><div class="tag t-core">核心</div><div class="ex-detail">20秒×各2</div></div>
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">貓牛伸展</div><div class="tag t-flex">柔軟</div><div class="ex-detail">1分鐘</div></div>
+    </div>
+    <div class="sec-head"><div class="sec-icon" style="background:rgba(78,205,196,.12);">🌙</div><span class="sec-title">晚上柔軟度</span><span class="sec-badge">15 min</span></div>
+    <div class="ex-list">
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">眼鏡蛇式</div><div class="tag t-flex">下腰</div><div class="ex-detail">45秒×2</div></div>
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">駱駝式</div><div class="tag t-flex">下腰</div><div class="ex-detail">30秒×2</div></div>
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">橋式撐高</div><div class="tag t-flex">下腰</div><div class="ex-detail">30秒×3</div></div>
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">靠牆下腰練習</div><div class="tag t-flex">下腰</div><div class="ex-detail">每天試推</div></div>
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">弓步深壓+劈腿</div><div class="tag t-flex">劈腿</div><div class="ex-detail">各45秒</div></div>
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">舞者伸展（髖+肩）</div><div class="tag t-flex">柔軟</div><div class="ex-detail">2分鐘</div></div>
+    </div>
+  </div>
+  <div class="day-view" id="day-thu">
+    <div class="note">🥊 <strong>週四：拳擊訓練日</strong>｜手腕沙袋出拳，上肢爆發力</div>
+    <div class="sec-head"><div class="sec-icon" style="background:rgba(244,196,48,.12);">🌅</div><span class="sec-title">早上啟動</span><span class="sec-badge">15 min</span></div>
+    <div class="ex-list">
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">原地高抬腿</div><div class="tag t-cardio">有氧</div><div class="ex-detail">2分鐘</div></div>
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">深蹲（綁腳沙袋）</div><div class="tag t-str">力量</div><div class="ex-detail">15次×3</div></div>
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">棒式 Plank</div><div class="tag t-core">核心</div><div class="ex-detail">30秒×3</div></div>
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">側平板（左右）</div><div class="tag t-core">核心</div><div class="ex-detail">20秒×各2</div></div>
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">貓牛伸展</div><div class="tag t-flex">柔軟</div><div class="ex-detail">1分鐘</div></div>
+    </div>
+    <div class="sec-head"><div class="sec-icon" style="background:rgba(255,77,109,.12);">🌙</div><span class="sec-title">晚上拳擊練習</span><span class="sec-badge">15 min</span></div>
+    <div class="ex-list">
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">手腕綁沙袋出拳</div><div class="tag t-cardio">拳擊</div><div class="ex-detail">1分鐘×2</div></div>
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">阻力帶臀橋</div><div class="tag t-glute">臀腿</div><div class="ex-detail">15次×3</div></div>
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">眼鏡蛇式+駱駝式</div><div class="tag t-flex">下腰</div><div class="ex-detail">各30秒</div></div>
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">劈腿靜態撐住</div><div class="tag t-flex">劈腿</div><div class="ex-detail">各45秒</div></div>
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">滾筒放鬆</div><div class="tag t-flex">恢復</div><div class="ex-detail">3分鐘</div></div>
+    </div>
+  </div>
+  <div class="day-view" id="day-fri">
+    <div class="note">💪 <strong>週五：重訓+倒立日</strong>｜本週最後力量訓練，衝刺一下！</div>
+    <div class="sec-head"><div class="sec-icon" style="background:rgba(244,196,48,.12);">🌅</div><span class="sec-title">早上啟動</span><span class="sec-badge">15 min</span></div>
+    <div class="ex-list">
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">原地高抬腿</div><div class="tag t-cardio">有氧</div><div class="ex-detail">2分鐘</div></div>
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">深蹲（綁腳沙袋）</div><div class="tag t-str">力量</div><div class="ex-detail">15次×3</div></div>
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">棒式 Plank</div><div class="tag t-core">核心</div><div class="ex-detail">30秒×3</div></div>
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">側平板（左右）</div><div class="tag t-core">核心</div><div class="ex-detail">20秒×各2</div></div>
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">貓牛伸展</div><div class="tag t-flex">柔軟</div><div class="ex-detail">1分鐘</div></div>
+    </div>
+    <div class="sec-head"><div class="sec-icon" style="background:rgba(107,203,119,.12);">🌙</div><span class="sec-title">晚上倒立+線條</span><span class="sec-badge">15 min</span></div>
+    <div class="ex-list">
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">靠牆倒立</div><div class="tag t-inv">倒立</div><div class="ex-detail">30秒×3</div></div>
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">海豚式</div><div class="tag t-inv">倒立</div><div class="ex-detail">30秒×2</div></div>
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">空心身體 Hollow Hold</div><div class="tag t-core">核心</div><div class="ex-detail">20秒×3</div></div>
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">阻力帶側走</div><div class="tag t-glute">臀腿</div><div class="ex-detail">來回10步×3</div></div>
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">滾筒+舞者伸展</div><div class="tag t-flex">恢復</div><div class="ex-detail">3分鐘</div></div>
+    </div>
+  </div>
+  <div class="day-view" id="day-sat">
+    <div class="note">💃 <strong>週六：跳舞日</strong>｜盡情跳！這本身就是最好的有氧和柔軟度訓練</div>
+    <div class="sec-head"><div class="sec-icon" style="background:rgba(244,196,48,.12);">🌅</div><span class="sec-title">早上動態熱身</span><span class="sec-badge">10 min</span></div>
+    <div class="ex-list">
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">髖關節環繞</div><div class="tag t-flex">熱身</div><div class="ex-detail">各10圈</div></div>
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">肩膀環繞+胸椎扭轉</div><div class="tag t-flex">熱身</div><div class="ex-detail">各10次</div></div>
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">弓步走</div><div class="tag t-str">熱身</div><div class="ex-detail">來回10步</div></div>
+    </div>
+    <div class="sec-head"><div class="sec-icon" style="background:rgba(78,205,196,.12);">🌙</div><span class="sec-title">晚上深度柔軟</span><span class="sec-badge">15 min</span></div>
+    <div class="ex-list">
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">靠牆下腰練習</div><div class="tag t-flex">下腰</div><div class="ex-detail">每天試推</div></div>
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">劈腿（左右+正）</div><div class="tag t-flex">劈腿</div><div class="ex-detail">各1分鐘</div></div>
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">橋式撐高</div><div class="tag t-flex">下腰</div><div class="ex-detail">30秒×3</div></div>
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">滾筒全身放鬆</div><div class="tag t-flex">恢復</div><div class="ex-detail">5分鐘</div></div>
+    </div>
+  </div>
+  <div class="day-view" id="day-sun">
+    <div class="note">😴 <strong>週日：主動恢復日</strong>｜讓肌肉修復，輕鬆活動就好</div>
+    <div class="sec-head"><div class="sec-icon" style="background:rgba(244,196,48,.12);">🌅</div><span class="sec-title">早上輕度活動</span><span class="sec-badge">10 min</span></div>
+    <div class="ex-list">
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">散步或輕鬆伸展</div><div class="tag t-flex">恢復</div><div class="ex-detail">10分鐘</div></div>
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">貓牛+嬰兒式</div><div class="tag t-flex">放鬆</div><div class="ex-detail">各1分鐘</div></div>
+    </div>
+    <div class="sec-head"><div class="sec-icon" style="background:rgba(199,125,255,.12);">🌙</div><span class="sec-title">晚上深度放鬆</span><span class="sec-badge">15 min</span></div>
+    <div class="ex-list">
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">滾筒全身放鬆</div><div class="tag t-flex">恢復</div><div class="ex-detail">5分鐘</div></div>
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">劈腿維持（不推進）</div><div class="tag t-flex">維持</div><div class="ex-detail">各1分鐘</div></div>
+      <div class="ex-item" onclick="toggleDone(this)"><div class="chk">✓</div><div class="ex-name">腿靠牆休息式</div><div class="tag t-flex">恢復</div><div class="ex-detail">5分鐘</div></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- WORKOUT -->
+<div class="page" id="page-workout">
+<div class="container">
+  <div style="padding:20px 0 14px;"><div class="eyebrow">每週訓練規劃</div><div style="font-size:22px;font-family:'Bebas Neue',sans-serif;letter-spacing:.04em;">課表 + 完整運動計畫</div></div>
+  <div class="note">📌 <strong>早晚 Routine 是每天必做基礎</strong>，以下是額外訓練。每週共4種訓練類型。</div>
+  <div class="card" style="margin-bottom:14px;">
+    <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:3px;text-align:center;margin-bottom:4px;">
+      <div style="font-size:10px;color:var(--muted);">一</div><div style="font-size:10px;color:var(--muted);">二</div><div style="font-size:10px;color:var(--muted);">三</div><div style="font-size:10px;color:var(--muted);">四</div><div style="font-size:10px;color:var(--muted);">五</div><div style="font-size:10px;color:var(--muted);">六</div><div style="font-size:10px;color:var(--muted);">日</div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:3px;text-align:center;">
+      <div style="background:rgba(255,77,109,.15);border-radius:8px;padding:8px 2px;font-size:9px;color:var(--accent);">🥊<br>拳擊</div>
+      <div style="background:rgba(199,125,255,.15);border-radius:8px;padding:8px 2px;font-size:9px;color:var(--purple);">🏋️<br>重訓</div>
+      <div style="background:rgba(78,205,196,.15);border-radius:8px;padding:8px 2px;font-size:9px;color:var(--teal);">💃<br>跳舞</div>
+      <div style="background:rgba(255,77,109,.15);border-radius:8px;padding:8px 2px;font-size:9px;color:var(--accent);">🥊<br>拳擊</div>
+      <div style="background:rgba(199,125,255,.15);border-radius:8px;padding:8px 2px;font-size:9px;color:var(--purple);">🏋️<br>重訓</div>
+      <div style="background:rgba(244,196,48,.15);border-radius:8px;padding:8px 2px;font-size:9px;color:var(--gold);">💃<br>跳舞</div>
+      <div style="background:rgba(107,203,119,.15);border-radius:8px;padding:8px 2px;font-size:9px;color:var(--green);">😴<br>恢復</div>
+    </div>
+  </div>
+  <div class="workout-card">
+    <div class="workout-header">
+      <div style="width:36px;height:36px;border-radius:10px;background:rgba(255,77,109,.15);display:flex;align-items:center;justify-content:center;font-size:18px;">🥊</div>
+      <div><div class="workout-day-label">拳擊訓練</div><div class="workout-type">週一、週四 ｜ 約60分鐘</div></div>
+      <div class="tag t-cardio" style="margin-left:auto;">爆發力</div>
+    </div>
+    <div class="workout-row"><div class="workout-name">跳繩熱身</div><div class="workout-sets">3分鐘×2組</div></div>
+    <div class="workout-row"><div class="workout-name">基本拳組合（1-2、1-2-3）</div><div class="workout-sets">2分鐘×3回合</div></div>
+    <div class="workout-row"><div class="workout-name">重沙包訓練</div><div class="workout-sets">2分鐘×4回合</div></div>
+    <div class="workout-row"><div class="workout-name">防守移步訓練</div><div class="workout-sets">1分鐘×3回合</div></div>
+    <div class="workout-row"><div class="workout-name">核心結尾（Mountain Climber）</div><div class="workout-sets">30秒×3組</div></div>
+    <div class="workout-row" style="background:rgba(255,77,109,.05);"><div style="flex:1;font-size:11px;color:var(--muted);">💡 賽前最後2週訓練量減30%，保留體能</div></div>
+  </div>
+  <div class="workout-card">
+    <div class="workout-header">
+      <div style="width:36px;height:36px;border-radius:10px;background:rgba(199,125,255,.15);display:flex;align-items:center;justify-content:center;font-size:18px;">🏋️</div>
+      <div><div class="workout-day-label" style="color:var(--purple);">居家重訓</div><div class="workout-type">週二、週五 ｜ 約40分鐘</div></div>
+      <div class="tag t-glute" style="margin-left:auto;">塑線條</div>
+    </div>
+    <div class="workout-row" style="background:rgba(199,125,255,.05);"><div style="font-size:11px;color:var(--purple);font-weight:700;">🔹 臀腿（舞者線條關鍵）</div></div>
+    <div class="workout-row"><div class="workout-name">保加利亞分腿蹲（沙袋）</div><div class="workout-sets">12次×3組</div></div>
+    <div class="workout-row"><div class="workout-name">阻力帶臀橋+單腿變化</div><div class="workout-sets">15次×3組</div></div>
+    <div class="workout-row"><div class="workout-name">側躺腿抬（阻力帶）</div><div class="workout-sets">20次×3組</div></div>
+    <div class="workout-row" style="background:rgba(199,125,255,.05);"><div style="font-size:11px;color:var(--purple);font-weight:700;">🔹 核心（拳擊爆發力）</div></div>
+    <div class="workout-row"><div class="workout-name">捲腹+交叉捲腹</div><div class="workout-sets">各20次×3組</div></div>
+    <div class="workout-row"><div class="workout-name">俄羅斯轉體</div><div class="workout-sets">20次×3組</div></div>
+    <div class="workout-row" style="background:rgba(199,125,255,.05);"><div style="font-size:11px;color:var(--purple);font-weight:700;">🔹 上肢（舞者肩線）</div></div>
+    <div class="workout-row"><div class="workout-name">俯臥撐（膝蓋版可）</div><div class="workout-sets">10–15次×3組</div></div>
+    <div class="workout-row"><div class="workout-name">阻力帶肩側平舉</div><div class="workout-sets">15次×3組</div></div>
+  </div>
+  <div class="workout-card">
+    <div class="workout-header">
+      <div style="width:36px;height:36px;border-radius:10px;background:rgba(244,196,48,.15);display:flex;align-items:center;justify-content:center;font-size:18px;">💃</div>
+      <div><div class="workout-day-label" style="color:var(--gold);">跳舞訓練</div><div class="workout-type">週三、週六 ｜ 隨意時長</div></div>
+      <div class="tag t-cardio" style="margin-left:auto;">有氧燃脂</div>
+    </div>
+    <div class="workout-row"><div class="workout-name">熱身：流動伸展+髖環繞</div><div class="workout-sets">10分鐘</div></div>
+    <div class="workout-row"><div class="workout-name">自由舞蹈練習</div><div class="workout-sets">30–60分鐘</div></div>
+    <div class="workout-row"><div class="workout-name">指定動作練習（下腰/劈腿融入）</div><div class="workout-sets">10分鐘</div></div>
+    <div class="workout-row" style="background:rgba(244,196,48,.05);"><div style="flex:1;font-size:11px;color:var(--muted);">💡 跳舞60分鐘 ≈ 消耗300–400kcal，等同一次有氧課</div></div>
+  </div>
+  <div class="workout-card">
+    <div class="workout-header">
+      <div style="width:36px;height:36px;border-radius:10px;background:rgba(78,205,196,.15);display:flex;align-items:center;justify-content:center;font-size:18px;">🤸</div>
+      <div><div class="workout-day-label" style="color:var(--teal);">柔軟度進階</div><div class="workout-type">每天晚上加入 ｜ 10分鐘</div></div>
+      <div class="tag t-flex" style="margin-left:auto;">下腰/劈腿/倒立</div>
+    </div>
+    <div class="workout-row" style="background:rgba(78,205,196,.05);"><div style="font-size:11px;color:var(--teal);font-weight:700;">🔸 劈腿進階路線（預計4–6週達成）</div></div>
+    <div class="workout-row"><div class="workout-name">弓步壓髖（蹲到底）</div><div class="workout-sets">各1分鐘</div></div>
+    <div class="workout-row"><div class="workout-name">坐姿開腿前彎</div><div class="workout-sets">1分鐘</div></div>
+    <div class="workout-row"><div class="workout-name">劈腿靜撐（每天多推1cm）</div><div class="workout-sets">各45–60秒</div></div>
+    <div class="workout-row" style="background:rgba(78,205,196,.05);"><div style="font-size:11px;color:var(--teal);font-weight:700;">🔸 下腰進階路線（預計8–12週達成）</div></div>
+    <div class="workout-row"><div class="workout-name">滾筒放鬆胸椎（必做！）</div><div class="workout-sets">2分鐘</div></div>
+    <div class="workout-row"><div class="workout-name">眼鏡蛇→駱駝→橋式連續</div><div class="workout-sets">各30秒</div></div>
+    <div class="workout-row"><div class="workout-name">靠牆下腰（手往下爬）</div><div class="workout-sets">每天試推</div></div>
+    <div class="workout-row" style="background:rgba(78,205,196,.05);"><div style="font-size:11px;color:var(--teal);font-weight:700;">🔸 倒立進階路線（預計6–8週達成）</div></div>
+    <div class="workout-row"><div class="workout-name">靠牆倒立（腳踢上去）</div><div class="workout-sets">30秒×3</div></div>
+    <div class="workout-row"><div class="workout-name">倒立移重心練習</div><div class="workout-sets">每天練習</div></div>
+    <div class="workout-row"><div class="workout-name">離牆倒立（穩定後嘗試）</div><div class="workout-sets">嘗試3次</div></div>
+  </div>
+  <div class="sec-head"><div class="sec-icon" style="background:rgba(255,77,109,.12);">📆</div><span class="sec-title">4個月分期計畫</span></div>
+  <div class="ex-list">
+    <div class="ex-item" style="cursor:default;flex-direction:column;align-items:flex-start;gap:4px;">
+      <div style="display:flex;align-items:center;gap:8px;width:100%;"><div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--accent);">月1</div><div style="font-size:13px;font-weight:600;">建立基礎</div><div class="tag t-str" style="margin-left:auto;">訓練×4/週</div></div>
+      <div style="font-size:12px;color:var(--muted);">飲食規律化・熱量赤字300kcal・蛋白質建立・劈腿突破</div>
+    </div>
+    <div class="ex-item" style="cursor:default;flex-direction:column;align-items:flex-start;gap:4px;">
+      <div style="display:flex;align-items:center;gap:8px;width:100%;"><div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--accent);">月2</div><div style="font-size:13px;font-weight:600;">加速減脂</div><div class="tag t-cardio" style="margin-left:auto;">有氧增加</div></div>
+      <div style="font-size:12px;color:var(--muted);">加入跳繩20分鐘/天・下腰突破・肌肉線條出現</div>
+    </div>
+    <div class="ex-item" style="cursor:default;flex-direction:column;align-items:flex-start;gap:4px;">
+      <div style="display:flex;align-items:center;gap:8px;width:100%;"><div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--accent);">月3</div><div style="font-size:13px;font-weight:600;">雕塑體態</div><div class="tag t-glute" style="margin-left:auto;">線條期</div></div>
+      <div style="font-size:12px;color:var(--muted);">體重55–56kg・倒立穩定・體脂接近20%</div>
+    </div>
+    <div class="ex-item" style="cursor:default;flex-direction:column;align-items:flex-start;gap:4px;">
+      <div style="display:flex;align-items:center;gap:8px;width:100%;"><div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--teal);">月4</div><div style="font-size:13px;font-weight:600;">賽前調整</div><div class="tag t-flex" style="margin-left:auto;">峰值期</div></div>
+      <div style="font-size:12px;color:var(--muted);">最後2週訓練量-30%・降水微調・保持體能狀態</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- FOOD -->
+<div class="page" id="page-food">
+<div class="container">
+  <div style="padding:20px 0 14px;"><div class="eyebrow">飲食記錄</div><div style="font-size:22px;font-family:'Bebas Neue',sans-serif;letter-spacing:.04em;">每日飲食監控</div></div>
+  <div class="stats3">
+    <div class="stat-box"><div class="stat-val" id="fk">0</div><div class="stat-lbl">熱量 kcal</div></div>
+    <div class="stat-box"><div class="stat-val" style="color:var(--teal);" id="fp">0g</div><div class="stat-lbl">蛋白質</div></div>
+    <div class="stat-box"><div class="stat-val" style="color:var(--gold);" id="fs">—</div><div class="stat-lbl">今日評分</div></div>
+  </div>
+  <div class="card">
+    <div class="prog-wrap">
+      <div class="prog-row"><span>熱量進度</span><span id="fkl">0 / 1400 kcal</span></div>
+      <div class="prog-bar"><div class="prog-fill" id="fkb" style="width:0%;background:linear-gradient(90deg,var(--teal),var(--accent));"></div></div>
+    </div>
+    <div class="prog-wrap" style="margin-bottom:0;">
+      <div class="prog-row"><span>蛋白質進度</span><span id="fpl">0 / 115g</span></div>
+      <div class="prog-bar"><div class="prog-fill" id="fpb" style="width:0%;background:linear-gradient(90deg,var(--teal),var(--purple));"></div></div>
+    </div>
+  </div>
+  <div class="sec-head"><div class="sec-icon" style="background:rgba(255,77,109,.12);">➕</div><span class="sec-title">新增飲食</span></div>
+  <div class="card">
+    <input id="fn" type="text" placeholder="食物名稱（例：蔥蛋2顆）" class="inp" style="margin-bottom:8px;">
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:8px;">
+      <input id="fc" type="number" placeholder="熱量 kcal" class="inp">
+      <input id="fprot" type="number" placeholder="蛋白質 g" class="inp">
+      <select id="fm" class="inp">
+        <option value="早餐">早餐</option><option value="早午餐" selected>早午餐</option>
+        <option value="午餐">午餐</option><option value="點心">點心</option>
+        <option value="晚餐">晚餐</option><option value="宵夜">宵夜</option>
+      </select>
+    </div>
+    <button onclick="addFood()" style="background:var(--accent);border:none;border-radius:10px;padding:11px;color:#fff;font-family:'Noto Sans TC',sans-serif;font-size:14px;font-weight:700;cursor:pointer;width:100%;">新增 ＋</button>
+  </div>
+  <div class="sec-head"><div class="sec-icon" style="background:rgba(78,205,196,.12);">🍽️</div><span class="sec-title">今日飲食</span><span class="sec-badge" id="fct">0 筆</span></div>
+  <div class="ex-list" id="food-list"><div style="padding:20px;text-align:center;color:var(--muted);font-size:13px;">開始記錄今天的飲食！</div></div>
+  <div class="sec-head" style="margin-top:4px;"><div class="sec-icon" style="background:rgba(244,196,48,.12);">📅</div><span class="sec-title">近7天記錄</span></div>
+  <div id="food-hist"></div>
+</div>
+</div>
+
+<!-- PROGRESS -->
+<div class="page" id="page-progress">
+<div class="container">
+  <div style="padding:20px 0 14px;"><div class="eyebrow">進度追蹤</div><div style="font-size:22px;font-family:'Bebas Neue',sans-serif;letter-spacing:.04em;">每週 · 每月追蹤</div></div>
+
+  <div class="sec-head"><div class="sec-icon" style="background:rgba(255,77,109,.12);">⚖️</div><span class="sec-title">記錄體重</span></div>
+  <div style="display:flex;gap:8px;margin-bottom:14px;">
+    <input id="ww" type="number" step="0.1" placeholder="體重 kg" class="inp">
+    <input id="wf" type="number" step="0.1" placeholder="體脂 % (選填)" class="inp">
+    <button onclick="logW()" style="flex-shrink:0;background:var(--accent);border:none;border-radius:10px;padding:0 14px;color:#fff;font-family:'Noto Sans TC',sans-serif;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;">記錄</button>
+  </div>
+
+  <div class="card" style="margin-bottom:14px;">
+    <div class="sec-head" style="margin-bottom:8px;"><div class="sec-icon" style="background:rgba(255,77,109,.12);">📉</div><span class="sec-title">體重趨勢（近8筆）</span></div>
+    <div style="display:flex;align-items:flex-end;gap:3px;height:80px;margin-bottom:4px;" id="wchart"></div>
+    <div style="display:flex;gap:3px;" id="wlabels"></div>
+  </div>
+
+  <div class="sec-head"><div class="sec-icon" style="background:rgba(78,205,196,.12);">📅</div><span class="sec-title">月曆打卡</span></div>
+  <div class="card">
+    <div class="month-selector">
+      <button class="month-arrow" onclick="chMonth(-1)">‹</button>
+      <div class="month-label" id="mlabel"></div>
+      <button class="month-arrow" onclick="chMonth(1)">›</button>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:5px;">
+      <div class="wh">日</div><div class="wh">一</div><div class="wh">二</div><div class="wh">三</div><div class="wh">四</div><div class="wh">五</div><div class="wh">六</div>
+    </div>
+    <div class="week-grid" id="cg"></div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px;font-size:10px;color:var(--muted);">
+      <span style="display:flex;align-items:center;gap:3px;"><span style="width:10px;height:10px;border-radius:3px;background:rgba(255,77,109,.3);display:inline-block;"></span>訓練</span>
+      <span style="display:flex;align-items:center;gap:3px;"><span style="width:10px;height:10px;border-radius:3px;background:rgba(78,205,196,.3);display:inline-block;"></span>飲食記錄</span>
+      <span style="display:flex;align-items:center;gap:3px;"><span style="width:10px;height:10px;border-radius:3px;background:rgba(107,203,119,.3);display:inline-block;"></span>雙項完成</span>
+    </div>
+  </div>
+
+  <div class="sec-head"><div class="sec-icon" style="background:rgba(199,125,255,.12);">📊</div><span class="sec-title">本週總結</span></div>
+  <div class="summary-grid">
+    <div class="summary-item"><div class="summary-val" id="wsd">0</div><div class="summary-lbl">訓練天數</div></div>
+    <div class="summary-item"><div class="summary-val" id="wsf" style="color:var(--gold);">0</div><div class="summary-lbl">飲食記錄天</div></div>
+    <div class="summary-item"><div class="summary-val" id="wsk" style="color:var(--teal);">0</div><div class="summary-lbl">平均熱量</div></div>
+    <div class="summary-item"><div class="summary-val" id="wsp" style="color:var(--purple);">0g</div><div class="summary-lbl">平均蛋白質</div></div>
+  </div>
+
+  <div class="card">
+    <div class="sec-head" style="margin-bottom:8px;"><div class="sec-icon" style="background:rgba(78,205,196,.12);">🔥</div><span class="sec-title">近7天熱量趨勢</span></div>
+    <div style="display:flex;align-items:flex-end;gap:4px;height:80px;margin-bottom:4px;" id="nchart"></div>
+    <div style="display:flex;gap:4px;" id="nlabels"></div>
+  </div>
+
+  <div class="sec-head"><div class="sec-icon" style="background:rgba(244,196,48,.12);">🏅</div><span class="sec-title">本月成績</span></div>
+  <div class="ex-list">
+    <div class="ex-item" style="cursor:default;"><div class="ex-name">本月訓練次數</div><div class="ex-detail" id="msw" style="color:var(--accent);font-family:'Bebas Neue',sans-serif;font-size:20px;">0</div></div>
+    <div class="ex-item" style="cursor:default;"><div class="ex-name">飲食記錄天數</div><div class="ex-detail" id="msf" style="color:var(--gold);font-family:'Bebas Neue',sans-serif;font-size:20px;">0</div></div>
+    <div class="ex-item" style="cursor:default;"><div class="ex-name">體重變化</div><div class="ex-detail" id="mswc" style="color:var(--teal);font-family:'Bebas Neue',sans-serif;font-size:20px;">—</div></div>
+    <div class="ex-item" style="cursor:default;"><div class="ex-name">平均飲食評分</div><div class="ex-detail" id="msas" style="color:var(--purple);font-family:'Bebas Neue',sans-serif;font-size:20px;">—</div></div>
+  </div>
+</div>
+</div>
+
+<!-- Weight modal -->
+<div id="wmod" style="display:none;position:fixed;inset:0;z-index:300;align-items:flex-end;">
+  <div style="position:absolute;inset:0;background:rgba(0,0,0,.7);" onclick="closeWMod()"></div>
+  <div style="position:relative;background:var(--surface);border-radius:20px 20px 0 0;padding:24px;width:100%;max-width:800px;margin:0 auto;">
+    <div style="font-size:16px;font-weight:700;margin-bottom:16px;">更新今日體重</div>
+    <div style="display:flex;gap:8px;margin-bottom:12px;">
+      <input id="mw" type="number" step="0.1" placeholder="體重 kg" class="inp">
+      <input id="mf" type="number" step="0.1" placeholder="體脂 % (選填)" class="inp">
+    </div>
+    <button onclick="saveWMod()" style="width:100%;background:var(--accent);border:none;border-radius:12px;padding:13px;color:#fff;font-family:'Noto Sans TC',sans-serif;font-size:15px;font-weight:700;cursor:pointer;">儲存</button>
+  </div>
+</div>
+
+<!-- Backup Modal -->
+<div id="backupmod" style="display:none;position:fixed;inset:0;z-index:300;align-items:flex-end;">
+  <div style="position:absolute;inset:0;background:rgba(0,0,0,.7);" onclick="closeBackup()"></div>
+  <div style="position:relative;background:var(--surface);border-radius:20px 20px 0 0;padding:24px;width:100%;max-width:800px;margin:0 auto;">
+    <div style="font-size:16px;font-weight:700;margin-bottom:6px;">💾 資料備份</div>
+    <div style="font-size:12px;color:var(--muted);margin-bottom:18px;">換手機或換瀏覽器前，先匯出備份；新裝置上再匯入還原</div>
+    <button onclick="exportData()" style="width:100%;background:var(--teal);border:none;border-radius:12px;padding:13px;color:#0d0d0f;font-family:sans-serif;font-size:14px;font-weight:700;cursor:pointer;margin-bottom:10px;">📤 匯出備份（下載 JSON 檔）</button>
+    <label style="width:100%;display:block;background:var(--surface2);border:1px dashed rgba(255,255,255,0.15);border-radius:12px;padding:13px;text-align:center;font-size:14px;color:var(--muted);cursor:pointer;margin-bottom:10px;">
+      📥 匯入備份（選擇 JSON 檔）
+      <input type="file" id="import-file" accept=".json" onchange="importData(event)" style="display:none;">
+    </label>
+    <div id="import-msg" style="font-size:12px;text-align:center;color:var(--teal);min-height:18px;margin-bottom:8px;"></div>
+    <button onclick="closeBackup()" style="width:100%;background:transparent;border:1px solid var(--border);border-radius:12px;padding:11px;color:var(--muted);font-family:sans-serif;font-size:13px;cursor:pointer;">關閉</button>
+  </div>
+</div>
+
+<div class="bottom-bar">
+  <div class="bottom-text">今日完成 <strong id="dc">0</strong> 項</div>
+  <div style="display:flex;gap:6px;">
+    <button class="reset-btn" onclick="openBackup()">💾 備份</button>
+    <button class="reset-btn" onclick="resetToday()">重置今日</button>
+  </div>
+</div>
+
+<script>
+// ─ Helpers ─────────────────────────────
+const $ = id => document.getElementById(id);
+const gj = (k,d) => { try{return JSON.parse(localStorage.getItem(k)||JSON.stringify(d));}catch(e){return d;} };
+const sj = (k,v) => localStorage.setItem(k, JSON.stringify(v));
+const tds = () => new Date().toISOString().slice(0,10);
+const score = (k,p) => { let s=5; if(p>=90)s+=3;else if(p>=70)s+=2;else if(p>=50)s+=1; if(k>=1100&&k<=1600)s+=2;else if(k<800)s-=1;else if(k>1900)s-=1; return Math.min(10,Math.max(1,s)); };
+
+// ─ Pages ───────────────────────────────
+function showPage(id,btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  $('page-'+id).classList.add('active');
+  btn.classList.add('active');
+  if(id==='progress')renderProgress();
+  if(id==='food')renderFood();
+  if(id==='home')renderHome();
+}
+
+// ─ Day tabs ────────────────────────────
+function showDay(day,btn){
+  document.querySelectorAll('.day-view').forEach(d=>d.classList.remove('active'));
+  document.querySelectorAll('.day-btn').forEach(b=>b.classList.remove('active'));
+  $('day-'+day).classList.add('active');
+  btn.classList.add('active');
+  updateDC();
+}
+
+// ─ Exercise check ──────────────────────
+function toggleDone(item){item.classList.toggle('done');updateDC();saveTrain();}
+function updateDC(){
+  const a=document.querySelector('.day-view.active');
+  const n=a?a.querySelectorAll('.ex-item.done').length:0;
+  $('dc').textContent=n; $('hd').textContent=n;
+}
+function resetToday(){
+  const a=document.querySelector('.day-view.active');
+  if(a)a.querySelectorAll('.ex-item.done').forEach(i=>i.classList.remove('done'));
+  updateDC(); saveTrain();
+}
+function saveTrain(){
+  const state={};
+  document.querySelectorAll('.day-view').forEach(v=>{
+    state[v.id]=[...v.querySelectorAll('.ex-item')].map(i=>i.classList.contains('done'));
+  });
+  sj('trainState',state);
+  const hasDone=Object.values(state).some(a=>a.some(Boolean));
+  if(hasDone){const m=gj('calMarks',{});m[tds()]=m[tds()]||{};m[tds()].workout=true;sj('calMarks',m);}
+}
+function loadTrain(){
+  const state=gj('trainState',{});
+  document.querySelectorAll('.day-view').forEach(v=>{
+    if(state[v.id])[...v.querySelectorAll('.ex-item')].forEach((item,i)=>{if(state[v.id][i])item.classList.add('done');});
+  });
+  updateDC();
+}
+
+// ─ Milestones ──────────────────────────
+function toggleMS(item,key){item.classList.toggle('done');const ms=gj('ms',{});ms[key]=item.classList.contains('done');sj('ms',ms);}
+function loadMS(){
+  const ms=gj('ms',{});
+  ['m1','m2','m3','m4','f1','f2','f3','f4'].forEach(k=>{
+    if(ms[k]){const el=document.querySelector(`[onclick*="'${k}'"]`);if(el)el.classList.add('done');}
+  });
+}
+
+// ─ Food ────────────────────────────────
+function addFood(){
+  const name=$('fn').value.trim();const kcal=parseInt($('fc').value)||0;const prot=parseInt($('fprot').value)||0;const meal=$('fm').value;
+  if(!name)return;
+  const key='food_'+tds();const log=gj(key,[]);
+  log.push({name,kcal,prot,meal,time:new Date().toLocaleTimeString('zh-TW',{hour:'2-digit',minute:'2-digit'})});
+  sj(key,log);
+  const m=gj('calMarks',{});m[tds()]=m[tds()]||{};m[tds()].food=true;sj('calMarks',m);
+  $('fn').value='';$('fc').value='';$('fprot').value='';
+  renderFood();renderHome();
+}
+function delFood(key,idx){const log=gj(key,[]);log.splice(idx,1);sj(key,log);renderFood();}
+function renderFood(){
+  const key='food_'+tds();const log=gj(key,[]);
+  const tk=log.reduce((s,e)=>s+(e.kcal||0),0);const tp=log.reduce((s,e)=>s+(e.prot||0),0);
+  const sc=log.length?score(tk,tp):null;
+  const col=!sc?'var(--muted)':sc>=8?'var(--teal)':sc>=6?'var(--gold)':'var(--accent)';
+  $('fk').textContent=tk;$('fp').textContent=tp+'g';
+  $('fs').textContent=sc?sc+'/10':'—';$('fs').style.color=col;
+  $('fkl').textContent=tk+' / 1400 kcal';$('fpl').textContent=tp+' / 115g';
+  $('fkb').style.width=Math.min(100,tk/14)+'%';$('fpb').style.width=Math.min(100,tp/1.15)+'%';
+  $('fct').textContent=log.length+' 筆';
+  const fl=$('food-list');
+  fl.innerHTML=!log.length?'<div style="padding:20px;text-align:center;color:var(--muted);font-size:13px;">開始記錄今天的飲食！</div>':
+    log.map((e,i)=>`<div class="ex-item" style="cursor:default;">
+      <div style="width:7px;height:7px;border-radius:50%;background:var(--teal);flex-shrink:0;"></div>
+      <div style="flex:1;"><div style="font-size:13px;font-weight:500;">${e.name}</div><div style="font-size:11px;color:var(--muted);margin-top:1px;">${e.meal} · ${e.time}</div></div>
+      <div style="text-align:right;margin-right:6px;"><div style="font-size:12px;color:var(--accent);">${e.kcal} kcal</div><div style="font-size:11px;color:var(--teal);">${e.prot}g</div></div>
+      <div onclick="delFood('${key}',${i})" style="color:var(--muted);font-size:18px;cursor:pointer;padding:2px 4px;line-height:1;">×</div>
+    </div>`).join('');
+  const hist=$('food-hist');const rows=[];
+  for(let i=1;i<=7;i++){const d=new Date();d.setDate(d.getDate()-i);const k='food_'+d.toISOString().slice(0,10);const l=gj(k,[]);if(!l.length)continue;
+    const k2=l.reduce((s,e)=>s+(e.kcal||0),0);const p2=l.reduce((s,e)=>s+(e.prot||0),0);const sc=score(k2,p2);
+    const sc_c=sc>=8?'var(--teal)':sc>=6?'var(--gold)':'var(--accent)';
+    const lbl=d.toLocaleDateString('zh-TW',{month:'numeric',day:'numeric',weekday:'short'});
+    rows.push(`<div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+      <div style="flex:1;"><div style="font-size:13px;font-weight:500;">${lbl}</div><div style="font-size:11px;color:var(--muted);margin-top:1px;">${l.length}筆・${k2}kcal・蛋白${p2}g</div></div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:${sc_c};">${sc}/10</div>
+    </div>`);
+  }
+  hist.innerHTML=rows.length?rows.join(''):'<div style="font-size:13px;color:var(--muted);text-align:center;padding:16px;">暫無歷史記錄</div>';
+}
+
+// ─ Weight ──────────────────────────────
+function logW(){const w=parseFloat($('ww').value);const f=parseFloat($('wf').value)||null;if(!w)return;const wl=gj('wlog',[]);wl.push({date:tds(),weight:w,fat:f});sj('wlog',wl);$('ww').value='';$('wf').value='';renderProgress();renderHome();}
+function openWModal(){$('wmod').style.display='flex';}
+function closeWMod(){$('wmod').style.display='none';}
+function saveWMod(){const w=parseFloat($('mw').value);const f=parseFloat($('mf').value)||null;if(!w)return;const wl=gj('wlog',[]);wl.push({date:tds(),weight:w,fat:f});sj('wlog',wl);$('mw').value='';$('mf').value='';closeWMod();renderHome();renderProgress();}
+
+// ─ Calendar ────────────────────────────
+let cY=new Date().getFullYear(),cM=new Date().getMonth();
+function chMonth(d){cM+=d;if(cM>11){cM=0;cY++;}if(cM<0){cM=11;cY--;}renderCal();}
+function renderCal(){
+  const months=['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
+  $('mlabel').textContent=cY+'年 '+months[cM];
+  const marks=gj('calMarks',{});const now=new Date();
+  const fd=new Date(cY,cM,1).getDay();const dim=new Date(cY,cM+1,0).getDate();
+  const cg=$('cg');let html='';
+  for(let i=0;i<fd;i++)html+='<div></div>';
+  for(let d=1;d<=dim;d++){
+    const ds=cY+'-'+String(cM+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');
+    const m=marks[ds]||{};const isT=now.getFullYear()===cY&&now.getMonth()===cM&&now.getDate()===d;
+    const isFut=new Date(cY,cM,d)>now;
+    let cls='week-cell';
+    if(isFut)cls+=' fut';else if(m.workout&&m.food)cls+=' both';else if(m.workout)cls+=' has-w';else if(m.food)cls+=' has-f';
+    if(isT)cls+=' tod';
+    html+=`<div class="${cls}"><div class="dn">${d}</div></div>`;
+  }
+  cg.innerHTML=html;
+}
+
+// ─ Progress ────────────────────────────
+function renderProgress(){
+  renderCal();
+  // weight chart
+  const wl=gj('wlog',[]);const last8=wl.slice(-8);
+  const wts=last8.map(e=>e.weight);const minW=Math.min(...wts,54)-.5;const maxW=Math.max(...wts,61)+.5;
+  const wc=$('wchart');const wlb=$('wlabels');
+  wc.innerHTML=last8.length?last8.map(e=>{const pct=((e.weight-minW)/(maxW-minW))*100;const h=Math.max(6,pct);
+    return `<div style="flex:1;border-radius:4px 4px 0 0;background:linear-gradient(180deg,var(--accent),rgba(255,77,109,.3));height:${h}%;"></div>`;}).join('')
+    :'<div style="color:var(--muted);font-size:12px;align-self:center;width:100%;text-align:center;">尚無體重記錄</div>';
+  wlb.innerHTML=last8.map(e=>`<div style="flex:1;font-size:9px;color:var(--muted);text-align:center;">${e.date.slice(5)}<br>${e.weight}</div>`).join('');
+  // weekly summary
+  const mon=new Date();mon.setDate(mon.getDate()-((mon.getDay()+6)%7));
+  let tDays=0,fDays=0,totalK=0,totalP=0,fCount=0;const marks=gj('calMarks',{});
+  for(let i=0;i<7;i++){const d=new Date(mon);d.setDate(mon.getDate()+i);const ds=d.toISOString().slice(0,10);const m=marks[ds]||{};
+    if(m.workout)tDays++;if(m.food)fDays++;
+    const fl=gj('food_'+ds,[]);if(fl.length){totalK+=fl.reduce((s,e)=>s+(e.kcal||0),0);totalP+=fl.reduce((s,e)=>s+(e.prot||0),0);fCount++;}}
+  $('wsd').textContent=tDays;$('wsf').textContent=fDays;
+  $('wsk').textContent=fCount?Math.round(totalK/fCount):0;$('wsp').textContent=(fCount?Math.round(totalP/fCount):0)+'g';
+  // nutrition chart
+  const days7=[];for(let i=6;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);const ds=d.toISOString().slice(0,10);
+    const fl=gj('food_'+ds,[]);days7.push({date:d,k:fl.reduce((s,e)=>s+(e.kcal||0),0),p:fl.reduce((s,e)=>s+(e.prot||0),0)});}
+  const maxK=Math.max(...days7.map(d=>d.k),1400);
+  $('nchart').innerHTML=days7.map(d=>`<div style="flex:1;border-radius:4px 4px 0 0;background:${d.k?'linear-gradient(180deg,var(--accent),rgba(255,77,109,.3))':'var(--surface2)'};height:${Math.max(2,d.k/maxK*80)}px;"></div>`).join('');
+  $('nlabels').innerHTML=days7.map(d=>`<div style="flex:1;font-size:9px;color:var(--muted);text-align:center;">${d.date.toLocaleDateString('zh-TW',{weekday:'short'})}</div>`).join('');
+  // monthly stats
+  const now=new Date();const mk=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
+  let mW=0,mF=0;for(const[k,v]of Object.entries(marks)){if(k.startsWith(mk)){if(v.workout)mW++;if(v.food)mF++;}}
+  const wlMonth=wl.filter(e=>e.date.startsWith(mk));
+  const wch=wlMonth.length>=2?(wlMonth[wlMonth.length-1].weight-wlMonth[0].weight).toFixed(1):null;
+  $('msw').textContent=mW;$('msf').textContent=mF;$('mswc').textContent=wch!==null?(wch>0?'+':'')+wch+'kg':'—';
+  let ss=0,sc2=0;for(let d=1;d<=now.getDate();d++){const ds=mk+'-'+String(d).padStart(2,'0');const fl=gj('food_'+ds,[]);if(fl.length){ss+=score(fl.reduce((s,e)=>s+(e.kcal||0),0),fl.reduce((s,e)=>s+(e.prot||0),0));sc2++;}}
+  $('msas').textContent=sc2?(ss/sc2).toFixed(1):'—';
+}
+
+// ─ Home ────────────────────────────────
+function renderHome(){
+  const wl=gj('wlog',[]);const lat=wl.length?wl[wl.length-1]:null;
+  const w=lat?lat.weight:61;const f=lat?(lat.fat||26):26;
+  $('hw').textContent=w.toFixed(1)+' kg';$('hf').textContent=f.toFixed(1)+'%';
+  setTimeout(()=>{$('hwb').style.width=Math.max(0,Math.min(100,(61-w)/7*100))+'%';$('hfb').style.width=Math.max(0,Math.min(100,(26-f)/6*100))+'%';},300);
+  const fl=gj('food_'+tds(),[]);
+  $('hk').textContent=fl.reduce((s,e)=>s+(e.kcal||0),0);
+  $('hp').textContent=fl.reduce((s,e)=>s+(e.prot||0),0)+'g';
+}
+
+// ─ Init today ──────────────────────────
+function initToday(){
+  const days=['sun','mon','tue','wed','thu','fri','sat'];const today=days[new Date().getDay()];
+  document.querySelectorAll('.day-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.day-view').forEach(d=>d.classList.remove('active'));
+  const btn=document.querySelector(`.day-btn[onclick*="'${today}'"]`);const view=$('day-'+today);
+  if(btn)btn.classList.add('active');if(view)view.classList.add('active');
+}
+
+// ─ Prefill today's food ────────────────
+function prefill(){
+  const key='food_'+tds();
+  if(!localStorage.getItem(key)){
+    const entries=[{name:'蔥蛋（2顆＋青蔥）',kcal:160,prot:12,meal:'早午餐',time:'09:00'},{name:'低脂牛肉丸（氣炸）',kcal:180,prot:20,meal:'早午餐',time:'09:00'},{name:'黑咖啡',kcal:5,prot:0,meal:'早午餐',time:'09:00'},{name:'無糖柳橙綠100cc',kcal:20,prot:0,meal:'早午餐',time:'09:00'}];
+    sj(key,entries);const m=gj('calMarks',{});m[tds()]=m[tds()]||{};m[tds()].food=true;sj('calMarks',m);
+  }
+}
+
+// ─ Backup / Export / Import ────────────
+function openBackup(){
+  const m = document.getElementById('backupmod');
+  m.style.display='flex';
+  document.getElementById('import-msg').textContent='';
+}
+function closeBackup(){ document.getElementById('backupmod').style.display='none'; }
+
+function exportData(){
+  const keys=['trainState','calMarks','wlog','ms','milestones'];
+  const data={exportedAt:new Date().toISOString(),version:'1.0'};
+  // food keys
+  for(let i=0;i<localStorage.length;i++){
+    const k=localStorage.key(i);
+    if(k&&k.startsWith('food_'))keys.push(k);
+  }
+  keys.forEach(k=>{ const v=localStorage.getItem(k); if(v)data[k]=JSON.parse(v); });
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;
+  const d=new Date().toISOString().slice(0,10);
+  a.download='training-backup-'+d+'.json';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function importData(event){
+  const file=event.target.files[0];
+  if(!file)return;
+  const reader=new FileReader();
+  reader.onload=function(e){
+    try{
+      const data=JSON.parse(e.target.result);
+      let count=0;
+      Object.entries(data).forEach(([k,v])=>{
+        if(k==='exportedAt'||k==='version')return;
+        localStorage.setItem(k,JSON.stringify(v));
+        count++;
+      });
+      document.getElementById('import-msg').textContent='✅ 成功還原 '+count+' 筆資料！請重新整理頁面。';
+      document.getElementById('import-msg').style.color='var(--teal)';
+      setTimeout(()=>location.reload(),1500);
+    }catch(err){
+      document.getElementById('import-msg').textContent='❌ 檔案格式錯誤，請選擇正確的備份檔';
+      document.getElementById('import-msg').style.color='var(--accent)';
+    }
+  };
+  reader.readAsText(file);
+}
+
+prefill();loadTrain();loadMS();initToday();renderHome();renderFood();
+</script>
+</body>
+</html>
